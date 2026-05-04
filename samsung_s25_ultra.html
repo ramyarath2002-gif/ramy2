@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samsung Galaxy S25 Ultra — Official Product Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0b;
+    --surface: #111113;
+    --surface2: #18181c;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0ede8;
+    --muted: #7a7875;
+    --accent: #c8a96e;
+    --accent2: #e8d5a3;
+    --blue: #4a90d9;
+    --red: #e25555;
+    --green: #5cb85c;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s;
+    opacity: 0.5;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: linear-gradient(to bottom, rgba(10,10,11,0.95), transparent);
+    backdrop-filter: blur(0px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent2); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    gap: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 75% 50%, rgba(200,169,110,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74,144,217,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.25s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-model {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.45s forwards;
+  }
+  .hero-price-row {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.55s forwards;
+  }
+  .price-current {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+  }
+  .price-mrp {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .price-badge {
+    background: rgba(200,169,110,0.12);
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+  }
+  .hero-actions {
+    display: flex; gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 14px 36px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 36px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border2);
+    cursor: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Phone Illustration */
+  .phone-wrap {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s 0.4s forwards;
+  }
+  .phone-glow {
+    position: absolute;
+    width: 300px; height: 500px;
+    background: radial-gradient(ellipse, rgba(200,169,110,0.15) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 0;
+  }
+  .phone-3d {
+    position: relative; z-index: 1;
+    width: 200px;
+    filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8));
+  }
+  .phone-body {
+    width: 200px; height: 410px;
+    background: linear-gradient(135deg, #2a2a2e 0%, #1a1a1e 40%, #111114 100%);
+    border-radius: 36px;
+    border: 1.5px solid #333338;
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-body::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%);
+    border-radius: 36px 36px 0 0;
+  }
+  .phone-screen {
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    background: linear-gradient(160deg, #0d1117 0%, #0a0d1a 50%, #080a14 100%);
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px;
+  }
+  .screen-time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .screen-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.15em;
+  }
+  .screen-bar {
+    position: absolute;
+    bottom: 20px;
+    width: 60px; height: 4px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 2px;
+  }
+  .camera-module {
+    position: absolute;
+    top: 18px; left: 18px;
+    width: 52px;
+    background: #0d0d10;
+    border-radius: 14px;
+    padding: 8px;
+    display: flex; flex-direction: column; gap: 5px; align-items: center;
+    border: 1px solid #222228;
+  }
+  .cam-main {
+    width: 28px; height: 28px;
+    background: radial-gradient(circle, #1a1a22 30%, #0a0a12 100%);
+    border-radius: 50%;
+    border: 1px solid #33333a;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cam-main::after {
+    content: '';
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #2a3560 0%, #111827 100%);
+    border: 1px solid #3a4570;
+  }
+  .cam-sm {
+    width: 16px; height: 16px;
+    background: radial-gradient(circle, #1a1a22 30%, #0a0a12 100%);
+    border-radius: 50%;
+    border: 1px solid #2a2a32;
+  }
+  .spen-slot {
+    position: absolute;
+    bottom: 12px; right: -5px;
+    width: 6px; height: 100px;
+    background: linear-gradient(180deg, #2a2a2e, #1a1a1e);
+    border-radius: 3px;
+    border: 1px solid #333338;
+  }
+
+  /* Floating specs */
+  .spec-float {
+    position: absolute;
+    background: rgba(18,18,22,0.9);
+    border: 1px solid var(--border2);
+    padding: 10px 14px;
+    backdrop-filter: blur(10px);
+  }
+  .spec-float-label { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; }
+  .spec-float-val { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 2px; }
+  .sf1 { top: 20%; left: -80px; animation: floatSpec 3s ease-in-out infinite; }
+  .sf2 { bottom: 25%; right: -90px; animation: floatSpec 3s 1s ease-in-out infinite; }
+  .sf3 { top: 65%; left: -60px; animation: floatSpec 3s 2s ease-in-out infinite; }
+
+  @keyframes floatSpec {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* Divider */
+  .section-divider {
+    display: flex; align-items: center; gap: 20px;
+    padding: 0 48px;
+    margin: 20px 0;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .section-divider span {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  /* Specs Section */
+  .specs-section {
+    padding: 80px 48px;
+    background: var(--surface);
+  }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 48px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .spec-card {
+    background: var(--surface);
+    padding: 28px 24px;
+    position: relative;
+    transition: background 0.2s;
+    overflow: hidden;
+  }
+  .spec-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 24px; right: 24px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .spec-card:hover { background: var(--surface2); }
+  .spec-card:hover::after { opacity: 1; }
+  .spec-icon {
+    width: 32px; height: 32px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+  .spec-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .spec-card-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .spec-card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Camera Section */
+  .camera-section {
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .camera-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,169,110,0.04), transparent);
+    pointer-events: none;
+  }
+
+  .cam-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .cam-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    height: 380px;
+  }
+  .cam-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(200,169,110,0.15);
+    animation: rotateSlow 20s linear infinite;
+  }
+  .cam-ring:nth-child(1) { width: 300px; height: 300px; }
+  .cam-ring:nth-child(2) { width: 220px; height: 220px; animation-direction: reverse; animation-duration: 15s; border-style: dashed; }
+  .cam-ring:nth-child(3) { width: 140px; height: 140px; animation-duration: 10s; }
+  .cam-center {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a2040 0%, #0d1020 100%);
+    border: 2px solid rgba(200,169,110,0.4);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+    box-shadow: 0 0 40px rgba(200,169,110,0.1);
+  }
+  .cam-center-inner {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #2a3565 0%, #151a35 100%);
+    border: 1px solid rgba(100,130,220,0.4);
+  }
+  @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .cam-specs-list { display: flex; flex-direction: column; gap: 16px; }
+  .cam-spec-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cam-spec-item:hover { background: var(--surface2); transform: translateX(4px); }
+  .cam-mp-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .cam-mp-unit { font-size: 13px; font-weight: 400; }
+  .cam-spec-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .cam-spec-detail { font-size: 12px; color: var(--muted); }
+
+  /* Battery & Build */
+  .features-section {
+    padding: 80px 48px;
+    background: var(--surface);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .feature-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .feature-card:hover { border-color: rgba(200,169,110,0.3); }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: rgba(200,169,110,0.12);
+    position: absolute;
+    top: 10px; right: 20px;
+    line-height: 1;
+  }
+  .feature-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .feature-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* AI Section */
+  .ai-section { padding: 80px 48px; }
+  .ai-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+  .ai-chip {
+    padding: 12px 22px;
+    border: 1px solid var(--border2);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--surface);
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200,169,110,0.08), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .ai-chip:hover { border-color: var(--accent); color: var(--accent2); }
+  .ai-chip:hover::before { opacity: 1; }
+
+  .ai-quote {
+    margin-top: 60px;
+    padding: 40px 48px;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    position: relative;
+  }
+  .ai-quote::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    color: rgba(200,169,110,0.08);
+    position: absolute;
+    top: -20px; left: 20px;
+    line-height: 1;
+  }
+  .ai-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.5;
+    max-width: 700px;
+  }
+
+  /* Storage */
+  .storage-section {
+    padding: 80px 48px;
+    background: var(--surface);
+  }
+  .storage-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .storage-card {
+    border: 1px solid var(--border);
+    padding: 28px;
+    text-align: center;
+    cursor: none;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .storage-card.active {
+    border-color: var(--accent);
+    background: rgba(200,169,110,0.05);
+  }
+  .storage-card.active::after {
+    content: 'POPULAR';
+    position: absolute;
+    top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 3px 12px;
+  }
+  .storage-size {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+  }
+  .storage-unit { font-size: 18px; font-weight: 300; }
+  .storage-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin: 8px 0 16px;
+  }
+  .storage-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 100px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(200,169,110,0.07), transparent);
+  }
+  .cta-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .cta-title em { font-style: italic; color: var(--accent); }
+  .cta-sub { font-size: 15px; color: var(--muted); margin-bottom: 48px; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; }
+
+  /* Footer */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .footer-brand span { color: var(--accent); }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-size: 11px; color: var(--muted); text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* Connectivity Row */
+  .conn-row {
+    display: flex; gap: 0;
+    background: var(--border);
+    margin-top: 48px;
+  }
+  .conn-item {
+    flex: 1;
+    background: var(--bg);
+    padding: 24px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .conn-item:last-child { border-right: none; }
+  .conn-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .conn-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .conn-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .phone-wrap { display: none; }
+    .specs-grid { grid-template-columns: repeat(2, 1fr); }
+    .cam-showcase { grid-template-columns: 1fr; }
+    .cam-visual { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .storage-options { grid-template-columns: 1fr; }
+    .specs-section, .camera-section, .features-section, .ai-section, .storage-section, .cta-section { padding: 60px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .conn-row { flex-wrap: wrap; }
+    .conn-item { min-width: 50%; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">Samsung<span>®</span></a>
+  <div class="nav-links">
+    <a href="#specs">Specs</a>
+    <a href="#camera">Camera</a>
+    <a href="#design">Design</a>
+    <a href="#ai">Galaxy AI</a>
+  </div>
+  <a href="#buy" class="nav-cta">Buy Now</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">New Arrival 2025</div>
+    <h1 class="hero-title">Galaxy<br>S25 <em>Ultra</em></h1>
+    <div class="hero-model">SM-S928B · 5G · One UI 7</div>
+    <p class="hero-desc">The pinnacle of mobile engineering. Snapdragon 8 Elite, a 200MP ProVisual camera system, and Galaxy AI — forged in Grade 5 Titanium.</p>
+    <div class="hero-price-row">
+      <div class="price-current">₹59,999</div>
+      <div>
+        <div class="price-mrp">MRP ₹65,000</div>
+        <div class="price-badge">Save ₹5,001</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <button class="btn-primary">Order Now</button>
+      <button class="btn-secondary">Explore More</button>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+    <div class="phone-glow"></div>
+    <div class="phone-3d">
+      <div class="phone-body">
+        <div class="camera-module">
+          <div class="cam-main"></div>
+          <div class="cam-sm"></div>
+          <div class="cam-sm"></div>
+          <div class="cam-sm"></div>
+        </div>
+        <div class="phone-screen">
+          <div class="screen-time" id="screenTime">12:00</div>
+          <div class="screen-date" id="screenDate">Thursday, Apr 23</div>
+          <div class="screen-bar"></div>
+        </div>
+        <div class="spen-slot"></div>
+      </div>
+    </div>
+    <div class="spec-float sf1">
+      <div class="spec-float-label">Display</div>
+      <div class="spec-float-val">6.9" QHD+</div>
+    </div>
+    <div class="spec-float sf2">
+      <div class="spec-float-label">Camera</div>
+      <div class="spec-float-val">200MP</div>
+    </div>
+    <div class="spec-float sf3">
+      <div class="spec-float-label">Chip</div>
+      <div class="spec-float-val">Snapdragon 8 Elite</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>Core Specifications</span></div>
+
+<!-- Specs Grid -->
+<section class="specs-section" id="specs">
+  <div class="section-header">
+    <h2 class="section-title">Performance<br>Redefined</h2>
+    <div class="section-num">01 / SPECIFICATIONS</div>
+  </div>
+  <div class="specs-grid reveal">
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="6" y="6" width="20" height="20" rx="2" stroke="#c8a96e" stroke-width="1.5"/>
+        <rect x="10" y="10" width="12" height="12" rx="1" stroke="#c8a96e" stroke-width="1"/>
+        <line x1="16" y1="2" x2="16" y2="6" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="16" y1="26" x2="16" y2="30" stroke="#c8a96e" stroke-width="1.5"/>
+      </svg>
+      <div class="spec-card-label">Processor</div>
+      <div class="spec-card-value">Snapdragon<br>8 Elite</div>
+      <div class="spec-card-sub">3nm · Octa-core · 4.47GHz</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="10" width="24" height="12" rx="2" stroke="#c8a96e" stroke-width="1.5"/>
+        <rect x="28" y="13" width="2" height="6" rx="1" stroke="#c8a96e" stroke-width="1"/>
+        <line x1="9" y1="14" x2="9" y2="18" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="13" y1="14" x2="13" y2="18" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="17" y1="14" x2="17" y2="18" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="21" y1="14" x2="21" y2="18" stroke="#c8a96e" stroke-width="1.5"/>
+      </svg>
+      <div class="spec-card-label">Memory</div>
+      <div class="spec-card-value">12GB<br>LPDDR5X</div>
+      <div class="spec-card-sub">256GB / 512GB / 1TB UFS 4.0</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="5" y="3" width="16" height="26" rx="3" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="9" y1="8" x2="17" y2="8" stroke="#c8a96e" stroke-width="1"/>
+        <circle cx="13" cy="24" r="2" stroke="#c8a96e" stroke-width="1"/>
+        <rect x="23" y="8" width="4" height="16" rx="2" stroke="#c8a96e" stroke-width="1"/>
+      </svg>
+      <div class="spec-card-label">Display</div>
+      <div class="spec-card-value">6.9"<br>AMOLED 2X</div>
+      <div class="spec-card-sub">QHD+ · 120Hz · 2,600 nits</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <path d="M16 4C9.37 4 4 9.37 4 16s5.37 12 12 12 12-5.37 12-12S22.63 4 16 4z" stroke="#c8a96e" stroke-width="1.5"/>
+        <path d="M16 8v8l6 3" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="spec-card-label">Battery</div>
+      <div class="spec-card-value">5,000mAh</div>
+      <div class="spec-card-sub">45W wired · 15W wireless</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="10" stroke="#c8a96e" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="4" stroke="#c8a96e" stroke-width="1"/>
+        <line x1="16" y1="6" x2="16" y2="4" stroke="#c8a96e" stroke-width="1.5"/>
+        <line x1="16" y1="28" x2="16" y2="26" stroke="#c8a96e" stroke-width="1.5"/>
+      </svg>
+      <div class="spec-card-label">Main Camera</div>
+      <div class="spec-card-value">200MP</div>
+      <div class="spec-card-sub">ProVisual Engine · f/1.7 · OIS</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="8" width="24" height="16" rx="2" stroke="#c8a96e" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="4" stroke="#c8a96e" stroke-width="1"/>
+        <rect x="7" y="4" width="4" height="4" rx="1" stroke="#c8a96e" stroke-width="1"/>
+      </svg>
+      <div class="spec-card-label">Video</div>
+      <div class="spec-card-value">8K / 30fps</div>
+      <div class="spec-card-sub">4K@120fps · ProVisual Engine</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <path d="M4 20c4-8 8-8 12 0s8 8 12 0" stroke="#c8a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="3" fill="#c8a96e" opacity="0.3"/>
+      </svg>
+      <div class="spec-card-label">Connectivity</div>
+      <div class="spec-card-value">5G · Wi-Fi 7</div>
+      <div class="spec-card-sub">Bluetooth 5.4 · eSIM + Nano-SIM</div>
+    </div>
+    <div class="spec-card">
+      <svg class="spec-icon" viewBox="0 0 32 32" fill="none">
+        <path d="M16 4l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" stroke="#c8a96e" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <div class="spec-card-label">OS</div>
+      <div class="spec-card-value">Android 15<br>One UI 7</div>
+      <div class="spec-card-sub">7 years OS + security updates</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>Camera System</span></div>
+
+<!-- Camera -->
+<section class="camera-section" id="camera">
+  <div class="section-header">
+    <h2 class="section-title">Quad Camera<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--accent)">Mastery</em></h2>
+    <div class="section-num">02 / CAMERA</div>
+  </div>
+  <div class="cam-showcase reveal">
+    <div class="cam-visual">
+      <div class="cam-ring"></div>
+      <div class="cam-ring"></div>
+      <div class="cam-ring"></div>
+      <div class="cam-center">
+        <div class="cam-center-inner"></div>
+      </div>
+    </div>
+    <div class="cam-specs-list">
+      <div class="cam-spec-item">
+        <div><div class="cam-mp-big">200<span class="cam-mp-unit">MP</span></div></div>
+        <div>
+          <div class="cam-spec-name">Wide — Main</div>
+          <div class="cam-spec-detail">f/1.7 · OIS · Multi-directional PDAF</div>
+        </div>
+      </div>
+      <div class="cam-spec-item">
+        <div><div class="cam-mp-big">50<span class="cam-mp-unit">MP</span></div></div>
+        <div>
+          <div class="cam-spec-name">Ultra-Wide</div>
+          <div class="cam-spec-detail">f/1.9 · 120° FOV · Dual-Pixel PDAF</div>
+        </div>
+      </div>
+      <div class="cam-spec-item">
+        <div><div class="cam-mp-big">50<span class="cam-mp-unit">MP</span></div></div>
+        <div>
+          <div class="cam-spec-name">Telephoto 5× Optical</div>
+          <div class="cam-spec-detail">f/3.4 · OIS · Optical zoom</div>
+        </div>
+      </div>
+      <div class="cam-spec-item">
+        <div><div class="cam-mp-big">10<span class="cam-mp-unit">MP</span></div></div>
+        <div>
+          <div class="cam-spec-name">Telephoto 3× Optical</div>
+          <div class="cam-spec-detail">f/2.4 · OIS · Optical zoom</div>
+        </div>
+      </div>
+      <div class="cam-spec-item" style="border-left-color: var(--blue)">
+        <div><div class="cam-mp-big" style="color:var(--blue)">12<span class="cam-mp-unit">MP</span></div></div>
+        <div>
+          <div class="cam-spec-name">Front — Selfie</div>
+          <div class="cam-spec-detail">f/2.2 · Dual-Pixel PDAF</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>Design & Durability</span></div>
+
+<!-- Features / Design -->
+<section class="features-section" id="design">
+  <div class="section-header">
+    <h2 class="section-title">Built Without<br>Compromise</h2>
+    <div class="section-num">03 / DESIGN</div>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <div class="feature-title">Frame Material</div>
+      <div class="feature-value">Grade 5<br>Titanium</div>
+      <div class="feature-desc">Aerospace-grade titanium chassis — stronger, lighter, and more refined than any predecessor.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <div class="feature-title">Dust & Water</div>
+      <div class="feature-value">IP68</div>
+      <div class="feature-desc">Rated for submersion up to 1.5 metres for 30 minutes. Water is never a worry.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <div class="feature-title">S-Pen Stylus</div>
+      <div class="feature-value">Integrated</div>
+      <div class="feature-desc">The iconic S-Pen, seamlessly embedded within the chassis. Precision at your fingertip, always.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">04</div>
+      <div class="feature-title">Dimensions</div>
+      <div class="feature-value">162.8mm</div>
+      <div class="feature-desc">162.8 × 77.6 × 8.2mm · 218g. Commanding presence with refined thinness.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">05</div>
+      <div class="feature-title">Display Glass</div>
+      <div class="feature-value">Gorilla<br>Armor 2</div>
+      <div class="feature-desc">Enhanced scratch resistance with up to 75% reduction in reflections for brilliant outdoor visibility.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">06</div>
+      <div class="feature-title">Security</div>
+      <div class="feature-value">Ultrasonic</div>
+      <div class="feature-desc">In-display ultrasonic fingerprint sensor with unmatched speed, accuracy, and reliability.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Connectivity -->
+<section style="padding: 40px 48px; background: var(--bg);">
+  <div class="section-num" style="margin-bottom: 0;">CONNECTIVITY AT A GLANCE</div>
+  <div class="conn-row reveal">
+    <div class="conn-item">
+      <span class="conn-icon">📶</span>
+      <div class="conn-name">5G</div>
+      <div class="conn-detail">Sub-6 & mmWave</div>
+    </div>
+    <div class="conn-item">
+      <span class="conn-icon">📡</span>
+      <div class="conn-name">Wi-Fi 7</div>
+      <div class="conn-detail">802.11be</div>
+    </div>
+    <div class="conn-item">
+      <span class="conn-icon">🔷</span>
+      <div class="conn-name">Bluetooth 5.4</div>
+      <div class="conn-detail">LE Audio</div>
+    </div>
+    <div class="conn-item">
+      <span class="conn-icon">💳</span>
+      <div class="conn-name">NFC</div>
+      <div class="conn-detail">Samsung Pay</div>
+    </div>
+    <div class="conn-item">
+      <span class="conn-icon">🔌</span>
+      <div class="conn-name">USB-C</div>
+      <div class="conn-detail">3.2 Gen 2</div>
+    </div>
+    <div class="conn-item">
+      <span class="conn-icon">📲</span>
+      <div class="conn-name">Dual SIM</div>
+      <div class="conn-detail">Nano + eSIM</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>Galaxy AI</span></div>
+
+<!-- AI -->
+<section class="ai-section" id="ai">
+  <div class="section-header">
+    <h2 class="section-title">Galaxy AI —<br>Your Intelligence</h2>
+    <div class="section-num">04 / AI FEATURES</div>
+  </div>
+  <div class="ai-chips reveal">
+    <div class="ai-chip">Circle to Search</div>
+    <div class="ai-chip">Live Translate</div>
+    <div class="ai-chip">Generative Edit</div>
+    <div class="ai-chip">ProScaler</div>
+    <div class="ai-chip">Chat Assist</div>
+    <div class="ai-chip">Note Assist</div>
+    <div class="ai-chip">Transcript Assist</div>
+    <div class="ai-chip">Interpreter Mode</div>
+  </div>
+  <div class="ai-quote reveal">
+    <p>Intelligence that works the way you do — searching, translating, creating, and enhancing, all at the speed of thought.</p>
+  </div>
+</section>
+
+<!-- Storage -->
+<section class="storage-section" id="buy">
+  <div class="section-header">
+    <h2 class="section-title">Choose Your<br>Configuration</h2>
+    <div class="section-num">05 / STORAGE</div>
+  </div>
+  <div class="storage-options reveal">
+    <div class="storage-card">
+      <div class="storage-size">256<span class="storage-unit">GB</span></div>
+      <div class="storage-type">UFS 4.0</div>
+      <div class="storage-price">₹59,999</div>
+    </div>
+    <div class="storage-card active">
+      <div class="storage-size">512<span class="storage-unit">GB</span></div>
+      <div class="storage-type">UFS 4.0</div>
+      <div class="storage-price">₹69,999</div>
+    </div>
+    <div class="storage-card">
+      <div class="storage-size">1<span class="storage-unit">TB</span></div>
+      <div class="storage-type">UFS 4.0</div>
+      <div class="storage-price">₹89,999</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-eyebrow">Ready to experience it?</div>
+  <h2 class="cta-title">The Future<br>is <em>Yours</em></h2>
+  <p class="cta-sub">Starting at ₹59,999 · Free delivery · 7-year update guarantee</p>
+  <div class="cta-buttons">
+    <button class="btn-primary" style="font-size:13px;padding:16px 48px;">Buy Galaxy S25 Ultra</button>
+    <button class="btn-secondary" style="font-size:13px;padding:16px 48px;">Compare Models</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">Samsung<span>®</span></div>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Support</a>
+    <a href="#">Find a Store</a>
+  </div>
+  <div class="footer-copy">© 2025 Samsung Electronics India</div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('button, a, .spec-card, .cam-spec-item, .feature-card, .ai-chip, .storage-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px';
+      cursor.style.height = '18px';
+      ring.style.width = '52px';
+      ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Live clock on phone
+  function updateClock() {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const el = document.getElementById('screenTime');
+    const de = document.getElementById('screenDate');
+    if (el) el.textContent = h + ':' + m;
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    if (de) de.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Storage card click
+  document.querySelectorAll('.storage-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.storage-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
